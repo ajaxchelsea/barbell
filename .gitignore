@@ -1,6 +1,14 @@
 *.class
 *.log
 
+# gradle specific
+.gradle
+build/
+
+# idea specific
+.idea
+*.iml
+
 # sbt specific
 .cache/
 .history/
