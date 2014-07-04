@@ -6,17 +6,15 @@ import com.gl.barbell.lotteries.UniqueNumberBasedLottery
 import scala.util.Random
 
 class RedBalls {
-  val red = new UniqueNumberBasedLottery()
-  (1 to 6).foreach((i) => red.add(shakeOnce()))
 
   def shake(): NumberBasedLottery = {
-    red
+    (1 to 6).foldLeft(new UniqueNumberBasedLottery())((lottery, i) => lottery.add(shakeOnce(lottery)))
   }
 
   private
 
-  def shakeOnce(): Int = {
+  def shakeOnce(lottery: UniqueNumberBasedLottery): Int = {
     val next = Random.nextInt(33) + 1
-    if (red.contains(next)) shakeOnce() else next
+    if (lottery.contains(next)) shakeOnce(lottery) else next
   }
 }

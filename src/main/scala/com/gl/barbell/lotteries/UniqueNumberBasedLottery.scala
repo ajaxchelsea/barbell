@@ -5,8 +5,9 @@ import com.gl.barbell.core.NumberBasedLottery
 
 class UniqueNumberBasedLottery extends NumberBasedLottery {
 
-  def add(number: Int) = {
+  def add(number: Int): UniqueNumberBasedLottery = {
     values.add(number)
+    this
   }
 
   def contains(number: Int): Boolean = {
