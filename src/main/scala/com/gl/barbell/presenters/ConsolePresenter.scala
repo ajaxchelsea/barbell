@@ -1,4 +1,6 @@
-package com.gl.barbell
+package com.gl.barbell.presenters
+
+import com.gl.barbell.core.NumberBasedLottery
 
 object ConsolePresenter {
 

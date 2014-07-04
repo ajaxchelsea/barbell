@@ -1,6 +1,6 @@
-package com.gl.barbell
+package com.gl.barbell.core
 
-import com.gl.barbell.Rules.Rule
+import com.gl.barbell.lotteries.UniqueNumberBasedLottery
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.prop.TableDrivenPropertyChecks._
@@ -11,8 +11,13 @@ class FalseRationalitySpec extends FunSpec with Matchers {
   describe("test keep strategy") {
 
     it("should be kept only when satisfies all rules") {
-      def alwaysTrue(lottery: NumberBasedLottery) = true
-      def alwaysFalse(lottery: NumberBasedLottery) = false
+
+      object alwaysTrue extends Rule {
+        override def satisfied(lottery: NumberBasedLottery): Boolean = true
+      }
+      object alwaysFalse extends Rule {
+        override def satisfied(lottery: NumberBasedLottery): Boolean = false
+      }
 
       val data = Table[List[Rule], Boolean](
         ("rules", "should keep?"),
@@ -22,7 +27,7 @@ class FalseRationalitySpec extends FunSpec with Matchers {
       )
 
       forAll(data) { (rules, shouldKeep) =>
-        new FalseRationality(rules).keep(new Red) should be(shouldKeep)
+        new FalseRationality(rules).keep(new UniqueNumberBasedLottery) should be(shouldKeep)
       }
     }
 
