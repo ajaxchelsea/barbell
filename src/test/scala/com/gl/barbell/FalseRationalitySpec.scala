@@ -22,7 +22,7 @@ class FalseRationalitySpec extends FunSpec with Matchers {
       )
 
       forAll(data) { (rules, shouldKeep) =>
-        new FalseRationality(rules, new Red).keep() should be(shouldKeep)
+        new FalseRationality(rules).keep(new Red) should be(shouldKeep)
       }
     }
 
