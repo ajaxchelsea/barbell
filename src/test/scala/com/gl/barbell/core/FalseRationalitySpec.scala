@@ -1,6 +1,6 @@
 package com.gl.barbell.core
 
-import com.gl.barbell.lotteries.UniqueNumberBasedLottery
+import com.gl.barbell.lotteries.UniqueRandomNumberLottery
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.prop.TableDrivenPropertyChecks._
@@ -27,7 +27,7 @@ class FalseRationalitySpec extends FunSpec with Matchers {
       )
 
       forAll(data) { (rules, shouldKeep) =>
-        new FalseRationality(rules).keep(new UniqueNumberBasedLottery) should be(shouldKeep)
+        new FalseRationality(rules).keep(new UniqueRandomNumberLottery(1, 2)) should be(shouldKeep)
       }
     }
 
