@@ -8,22 +8,19 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.{FunSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class SumScopeRuleSpec extends FunSpec with Matchers {
-  describe("test sum scope rule") {
+class ContinuationRuleSpec extends FunSpec with Matchers {
+  describe("test parity ratio rule") {
 
-    it("satisfied only when min <= sum <= max") {
+    it("satisfied only when parity ratio >= specified percentage") {
 
       val data = Table[Set[Int], Boolean](
         ("lotteries", "satisfied?"),
-        (Set(1, 2, 3), false),
-        (Set(10, 20, 30), false),
-        (Set(4, 5, 6), true),
-        (Set(7, 8, 9), true),
-        (Set(10, 11, 12), true)
+        (Set(1, 3, 4, 5, 6, 9), false),
+        (Set(1, 2, 3, 7, 8, 9), true)
       )
 
       forAll(data) { (lottery, satisfied) =>
-        new SumScopeRule(4 + 5 + 6, 10 + 11 + 12).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
+        new ContinuationRule(3).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
       }
     }
 

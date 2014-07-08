@@ -1,5 +1,6 @@
 package com.gl.barbell.rules
 
+import com.gl.barbell.lotteries.SetBasedLottery
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.prop.TableDrivenPropertyChecks._
@@ -24,7 +25,7 @@ class ParityRatioRuleSpec extends FunSpec with Matchers {
       )
 
       forAll(data) { (lottery, satisfied) =>
-        new ParityRatioRule(0.3).satisfied(lottery.toLottery) should be(satisfied)
+        new ParityRatioRule(0.3).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
       }
     }
 
