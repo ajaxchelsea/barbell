@@ -3,7 +3,7 @@ package com.gl.barbell.lotteries.redballs
 import com.gl.barbell.core.{FalseRationality, NumberBasedLottery, Rule}
 import com.gl.barbell.lotteries.UniqueRandomNumberLotteryShaker
 import com.gl.barbell.presenters.ConsolePresenter
-import com.gl.barbell.rules.{ContinuationRule, ParityRatioRule, SumScopeRule}
+import com.gl.barbell.rules.{ContinuationRule, ParityRatioRule, RangeRule, SumScopeRule}
 
 object RedBallsApp extends App {
 
@@ -12,12 +12,13 @@ object RedBallsApp extends App {
   val rules = List[Rule](
     new SumScopeRule(60, 150),
     new ParityRatioRule(0.15),
-    new ContinuationRule(3)
+    new ContinuationRule(3),
+    new RangeRule(Map((1 to 11, 1), ((12 to 22), 1), ((23 to 33), 1)))
   )
 
   val falseRationality = new FalseRationality(rules)
 
-  (1 to 5).map((i) => shakeOnce()).foreach(ConsolePresenter.present(_))
+  (1 to 16).foreach((i) => ConsolePresenter.present(shakeOnce()))
 
   def shakeOnce(): NumberBasedLottery = {
     val red = redBallShaker.shake()
