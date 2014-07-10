@@ -6,9 +6,10 @@ class ContinuationRule(maxLength: Int) extends Rule {
 
   class Recorder {
     var current: Int = -1
-    var paces: List[Int] = List()
+    var paces: List[Int] = Nil
+
     def next(number: Int) = {
-      paces = paces ++ List(number - current)
+      paces = paces :+ (number - current)
       current = number
       this
     }
