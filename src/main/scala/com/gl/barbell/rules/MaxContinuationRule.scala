@@ -2,7 +2,7 @@ package com.gl.barbell.rules
 
 import com.gl.barbell.core.{NumberBasedLottery, Rule}
 
-class ContinuationRule(maxLength: Int) extends Rule {
+class MaxContinuationRule(maxLength: Int) extends Rule {
 
   class Recorder {
     var current: Int = -1

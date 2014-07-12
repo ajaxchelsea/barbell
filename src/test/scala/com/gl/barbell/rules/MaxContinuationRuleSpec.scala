@@ -8,7 +8,7 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.{FunSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class ContinuationRuleSpec extends FunSpec with Matchers {
+class MaxContinuationRuleSpec extends FunSpec with Matchers {
   describe("test continuation rule") {
 
     it("satisfied only when continuous numbers <= specified number") {
@@ -20,7 +20,7 @@ class ContinuationRuleSpec extends FunSpec with Matchers {
       )
 
       forAll(data) { (lottery, satisfied) =>
-        new ContinuationRule(3).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
+        new MaxContinuationRule(3).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
       }
     }
 

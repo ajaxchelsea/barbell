@@ -8,7 +8,7 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.{FunSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class ParityRatioRuleSpec extends FunSpec with Matchers {
+class MinParityRatioRuleSpec extends FunSpec with Matchers {
   describe("test parity ratio rule") {
 
     it("satisfied only when parity ratio >= specified percentage") {
@@ -25,7 +25,7 @@ class ParityRatioRuleSpec extends FunSpec with Matchers {
       )
 
       forAll(data) { (lottery, satisfied) =>
-        new ParityRatioRule(0.3).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
+        new MinParityRatioRule(0.3).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
       }
     }
 
