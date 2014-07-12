@@ -8,19 +8,21 @@ import org.scalatest.prop.Tables.Table
 import org.scalatest.{FunSpec, Matchers}
 
 @RunWith(classOf[JUnitRunner])
-class ContinuationRuleSpec extends FunSpec with Matchers {
-  describe("test continuation rule") {
+class ExclusiveRuleSpec extends FunSpec with Matchers {
+  describe("test exclusive rule") {
 
-    it("satisfied only when continuous numbers <= specified number") {
+    it("satisfied only when contains none of the specified numbers") {
 
       val data = Table[Set[Int], Boolean](
         ("lotteries", "satisfied?"),
-        (Set(1, 3, 4, 5, 6, 9), false),
-        (Set(1, 2, 3, 7, 8, 9), true)
+        (Set(1, 3, 4, 9), false),
+        (Set(1, 5, 6, 9), false),
+        (Set(1, 8, 6, 9), false),
+        (Set(1, 4, 6, 9), true)
       )
 
       forAll(data) { (lottery, satisfied) =>
-        new ContinuationRule(3).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
+        new ExclusiveRule(Set(3, 5, 8)).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
       }
     }
 
