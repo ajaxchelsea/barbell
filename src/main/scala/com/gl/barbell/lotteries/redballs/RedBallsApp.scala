@@ -5,20 +5,18 @@ import com.gl.barbell.lotteries.UniqueRandomNumberLotteryShaker
 import com.gl.barbell.presenters.{ConsolePresenter, FilePresenter, TaobaoFormatter}
 import com.gl.barbell.rules._
 
-import scala.collection.immutable.IndexedSeq
-
 object RedBallsApp extends App {
 
   val redBallShaker = new UniqueRandomNumberLotteryShaker(6, 33)
 
   val falseRationality = new FalseRationality(rules)
 
-  val presenter: FilePresenter = new FilePresenter("lottery.txt")
+  val presenter = new FilePresenter("lottery.txt")
 
-  val lotteries: IndexedSeq[NumberBasedLottery] = (1 to 16).map((i) => shakeOnce())
+  val lotteries = (1 to 16).map((i) => shakeOnce())
 
-  lotteries.indices.foreach((i) => presenter.present(TaobaoFormatter.format(i, lotteries(i))))
-  lotteries.indices.foreach((i) => ConsolePresenter.present(TaobaoFormatter.format(i, lotteries(i))))
+  lotteries.indices.foreach((i) => presenter.present(TaobaoFormatter.format(i + 1, lotteries(i))))
+  lotteries.indices.foreach((i) => ConsolePresenter.present(TaobaoFormatter.format(i + 1, lotteries(i))))
 
   def shakeOnce(): NumberBasedLottery = {
     val red = redBallShaker.shake()
