@@ -11,7 +11,7 @@ import org.scalatest.{FunSpec, Matchers}
 class ExclusiveRuleSpec extends FunSpec with Matchers {
   describe("test exclusive rule") {
 
-    it("satisfied only when contains none of the specified numbers") {
+    it("satisfied only when contains none of the specified numbers by default") {
 
       val data = Table[Set[Int], Boolean](
         ("lotteries", "satisfied?"),
@@ -26,6 +26,21 @@ class ExclusiveRuleSpec extends FunSpec with Matchers {
       }
     }
 
+    it("satisfied only when contains specified numbers not greater than max intersection count") {
+
+      val data = Table[Set[Int], Boolean](
+        ("lotteries", "satisfied?"),
+        (Set(1, 3, 4, 9), true),
+        (Set(1, 5, 6, 9), true),
+        (Set(1, 8, 6, 9), true),
+        (Set(1, 4, 6, 9), true),
+        (Set(1, 3, 5, 9), false)
+      )
+
+      forAll(data) { (lottery, satisfied) =>
+        new ExclusiveRule(Set(3, 5, 8), 1).satisfied(new SetBasedLottery(lottery)) should be(satisfied)
+      }
+    }
   }
 
 }

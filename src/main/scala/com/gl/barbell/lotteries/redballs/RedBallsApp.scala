@@ -28,6 +28,7 @@ object RedBallsApp extends App {
     new MinParityRatioRule(0.15),
     new MaxContinuationRule(3),
     new RangeRule(Map((1 to 11, 1), ((12 to 22), 1), ((23 to 33), 1))),
-    new ExclusiveRule(Set(2, 3, 5, 6, 9, 17))
+    new ExclusiveRule(Set(1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31), 4),
+    new ExclusiveRule(Set(2, 7, 16, 22, 27, 28), 1)
   )
 }
